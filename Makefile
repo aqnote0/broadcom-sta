@@ -174,11 +174,11 @@ KBUILD_DIR         ?= $(KBASE)/build
 MDEST_DIR          ?= $(KBASE)/kernel/drivers/net/wireless
 
 # Cross compile setup.  Tool chain and kernel tree, replace with your own.
-CROSS_TOOLS        = /path/to/tools
-CROSS_KBUILD_DIR   = /path/to/kernel/tree
+CROSS_TOOLS        = /usr/bin/clang
+CROSS_KBUILD_DIR   = /lib/modules/$(KVER)/build
 
 all:
-	KBUILD_NOPEDANTIC=1 make -C $(KBUILD_DIR) M=`pwd`
+	KBUILD_NOPEDANTIC=1 make LLVM=1 -C $(KBUILD_DIR) M=`pwd`
 
 cross:
 	KBUILD_NOPEDANTIC=1 make CROSS_COMPILE=${CROSS_TOOLS} -C $(CROSS_KBUILD_DIR) M=`pwd`
